@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn-danger {
+  @apply text-red-600 bg-red-100 border border-red-200 px-4 py-1 rounded;
+}
