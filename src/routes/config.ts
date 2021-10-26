@@ -15,12 +15,12 @@ const routes: DynamicRouteProps[] = [
     path: "/login",
     component: LoginPage,
     secret: false,
-    exact: true,
   },
   {
     path: "/",
     component: Dashboard,
-    exact: false,
+    exact: true,
+    secret: true,
   },
 ];
 export default routes;
