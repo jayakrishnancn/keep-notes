@@ -1,5 +1,6 @@
 import React from "react";
 import "./tailwind.css";
+import "./index.css";
 import ReactDOM from "react-dom";
 
 import Routes from "./routes/Routes";

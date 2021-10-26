@@ -1,0 +1,29 @@
+.card {
+  @apply shadow-md  card-no-shadow mx-auto;
+}
+.card-no-shadow {
+  @apply bg-white rounded-lg border max-w-lg text-left;
+}
+.placeholder-bold::-webkit-input-placeholder {
+  font-weight: bold;
+}
+
+.placeholder {
+  @apply placeholder-gray-400  placeholder-bold focus:placeholder-gray-300;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 10px;
+  background-color: #2196f3;
+  padding: 10px;
+  height: 1000px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid black;
+  text-align: center;
+  font-size: 30px;
+}

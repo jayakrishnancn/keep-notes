@@ -12,7 +12,6 @@ const CustomRoute = (Routeprops: DynamicRouteProps) => {
     exact = true,
     ...rest
   } = Routeprops;
-  debugger;
   const { token } = useAuth();
   const isAuthnticated = !secret || (secret && token);
 
@@ -31,8 +30,6 @@ const CustomRoute = (Routeprops: DynamicRouteProps) => {
 };
 
 const Routes = () => {
-  console.log(routes);
-  debugger;
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <BrowserRouter>
