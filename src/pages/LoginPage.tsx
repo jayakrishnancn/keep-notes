@@ -7,6 +7,9 @@ const LoginPage = () => {
   const history = useHistory();
   return (
     <div className="text-center">
+      <Link to="/" className="mb-4 inline-block">
+        Home
+      </Link>
       <div className="mb-5">Login Page {token ? "with" : "without"} token </div>
       <button
         className="btn-danger m-5 leading-7"

@@ -20,7 +20,7 @@ const routes: DynamicRouteProps[] = [
     path: "/",
     component: Dashboard,
     exact: true,
-    secret: true,
+    secret: false,
   },
 ];
 export default routes;

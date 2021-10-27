@@ -38,20 +38,27 @@ const Edit = ({ data, onClose = () => {} }: CreateProps) => {
   };
 
   return (
-    <form onSubmit={onSubmit} onClick={e => e.stopPropagation()}>
-      <div className="card w-full relative ">
+    <form onSubmit={onSubmit}>
+      <div className="card w-full relative" onClick={e => e.stopPropagation()}>
         <div className="p-5">
-          <input
+          <AutoHeightTextarea
             ref={titleRef}
             defaultValue={title || ""}
-            placeholder="titleRef"
+            placeholder="Title"
+            onKeyDown={e => {
+              if (e.key === "Enter") {
+                noteRef?.current?.focus();
+                e.preventDefault();
+              }
+            }}
             className="w-full mb-3 font-bold outline-none placeholder"
           />
           <AutoHeightTextarea
             ref={noteRef}
+            rows={3}
             defaultValue={note || ""}
             placeholder="Take a note."
-            className="w-full transform-all min-h-full resize-none outline-none placeholder"
+            className="w-full min-h-full resize-none outline-none placeholder"
           />
         </div>
         <div

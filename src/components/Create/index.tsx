@@ -7,14 +7,14 @@ import AutoHeightTextarea from "../AutoHeightTextArea";
 import { CreateProps } from "./type";
 
 const Create = ({ data }: CreateProps) => {
-  const title = useRef<HTMLInputElement>(null);
-  const notes = useRef<HTMLTextAreaElement>(null);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const notesRef = useRef<HTMLTextAreaElement>(null);
   const { fetchData } = useData();
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    const titleValue = title?.current?.value;
-    const noteValue = notes?.current?.value || null;
+    const titleValue = titleRef?.current?.value;
+    const noteValue = notesRef?.current?.value || null;
     if (!titleValue && !noteValue) {
       return;
     }
@@ -27,17 +27,24 @@ const Create = ({ data }: CreateProps) => {
     <form onSubmit={onSubmit} onClick={e => e.stopPropagation()}>
       <div className="card w-full relative ">
         <div className="p-5">
-          <input
-            ref={title}
+          <AutoHeightTextarea
+            ref={titleRef}
             defaultValue={data?.title || ""}
             placeholder="Title"
-            className="w-full mb-3 font-bold outline-none placeholder"
+            onKeyDown={e => {
+              if (e.key === "Enter") {
+                notesRef?.current?.focus();
+                e.preventDefault();
+              }
+            }}
+            className="w-full font-bold outline-none  placeholder"
           />
           <AutoHeightTextarea
-            ref={notes}
+            ref={notesRef}
+            rows={3}
             defaultValue={data?.note || ""}
             placeholder="Take a note."
-            className="w-full transform-all min-h-full resize-none outline-none placeholder"
+            className="w-full min-h-full outline-none placeholder"
           />
         </div>
         <div

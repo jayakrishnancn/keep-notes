@@ -40,6 +40,7 @@ export const getAllNotes = (): Promise<NotesResponse> => {
 export const createNotes = (title: string, note: string): Promise<Response> => {
   let id = new Date().getTime() + "";
   appendLocalData({ title, note, id });
+
   return Promise.resolve({ success: true, data: null });
 };
 

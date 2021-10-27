@@ -9,7 +9,7 @@ const Notes = () => {
   const [modelData, setModelData] = useState<Note | null>(null);
   const { data } = useData();
 
-  if (!data) {
+  if (data?.length === 0) {
     return <p className="text-center mt-10">Notes will appear here.</p>;
   }
 
@@ -19,24 +19,20 @@ const Notes = () => {
         <Model note={modelData} onClose={() => setModelData(null)} />
       )}
 
-      <div className="container mx-auto mt-12 grid grid-cols-4 gap-4">
+      <div className="container mx-auto mt-12 grid grid-cols-4 gap-4 break-words text-left">
         {data?.map((cardData: Note, index: number) => {
           const { title, note, id } = cardData;
           return (
             <div
               key={`note-${id}`}
               onClick={() => setModelData({ ...cardData, id })}
-              className="bg-white border rounded-md  relative cursor-default group hover:shadow-md transition-shadow mx-1 p-3"
+              className="bg-white border rounded-md  relative cursor-default group hover:shadow-md transition-shadow mx-1 p-3 text-gray-600"
             >
               <div className="absolute cursor-pointer top-2 right-2 hidden group-hover:block">
                 <FontAwesomeIcon icon={faPencilAlt} />
               </div>
-              {title && (
-                <h2 className="text-gray-800 text-3xl font-semibold">
-                  {title}
-                </h2>
-              )}
-              {note && <p className="mt-2 text-gray-600">{note}</p>}
+              {title && <h2 className="text-3xl font-bold">{title}</h2>}
+              {note && <p className="mt-2 font-semibold">{note}</p>}
             </div>
           );
         })}

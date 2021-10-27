@@ -1,3 +1,5 @@
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Suspense } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import _404 from "../components/_404";
@@ -5,13 +7,13 @@ import { useAuth } from "../contexts/AuthContext";
 import routes from "./config";
 import { DynamicRouteProps } from "./type";
 
-const CustomRoute = (Routeprops: DynamicRouteProps) => {
+const CustomRoute = (routeprops: DynamicRouteProps) => {
   const {
     component: Component,
     secret = true,
     exact = true,
     ...rest
-  } = Routeprops;
+  } = routeprops;
   const { token } = useAuth();
   const isAuthnticated = !secret || (secret && token);
 
@@ -31,7 +33,13 @@ const CustomRoute = (Routeprops: DynamicRouteProps) => {
 
 const Routes = () => {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense
+      fallback={
+        <div className="fixed inset-0 text-purple-800 text-center mt-20">
+          <FontAwesomeIcon icon={faSpinner} pulse size="6x" />
+        </div>
+      }
+    >
       <BrowserRouter>
         <Switch>
           {routes?.map(item => (

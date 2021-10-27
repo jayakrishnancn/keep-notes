@@ -4,7 +4,7 @@ const AutoHeightTextarea = (
   { className, ...rest }: HTMLProps<HTMLTextAreaElement>,
   textareaRef: any
 ) => {
-  const MIN_TEXTAREA_HEIGHT = 32;
+  const MIN_TEXTAREA_HEIGHT = 20;
   // const textareaRef = useRef<any>(null);
   const [value, setValue] = useState<string>("");
   const onChange = (event: any) => setValue(event.target.value);
@@ -25,8 +25,10 @@ const AutoHeightTextarea = (
       onChange={onChange}
       ref={textareaRef}
       className={className}
+      rows={1}
       style={{
         minHeight: MIN_TEXTAREA_HEIGHT,
+        resize: "none",
       }}
       {...rest}
     />
