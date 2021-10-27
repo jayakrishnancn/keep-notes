@@ -26,7 +26,7 @@ const Notes = () => {
             <div
               key={`note-${id}`}
               onClick={() => setModelData({ ...cardData, id })}
-              className="bg-white border rounded-md  relative cursor-default group hover:shadow-md transition-shadow mx-1 p-3 text-gray-600"
+              className="bg-white border-gray-300 border rounded-md  relative cursor-default group hover:shadow-lg transition-shadow mx-1 p-3 text-gray-600"
             >
               <div className="absolute cursor-pointer top-2 right-2 hidden group-hover:block">
                 <FontAwesomeIcon icon={faPencilAlt} />

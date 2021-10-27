@@ -1,12 +1,32 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNotification } from "../../contexts/NotificationContext";
 
-const Banner = (props: any) => {
+const Banner = () => {
+  const { data } = useNotification();
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    setShow(true);
+    let timeoutId = setTimeout(() => {
+      setShow(false);
+    }, 3000);
+    return () => clearTimeout(timeoutId);
+  }, [data]);
+
+  const { message } = data || {};
+
   return (
-    <div className="border-4 border-red-500 bg-yellow-200 shadow-md text-center max-w-lg fixed top-1 opacity-60 hover:opacity-100 transition-all left-0 right-0 mx-auto px-2 py-1 border-double  rounded">
-      THIS PAGE IS PUBLIC. TO MAKE PRIVATE NOTES. PLEASE{" "}
-      <Link className="underline" to="/login">
-        LOGIN
-      </Link>
+    <div
+      className={
+        "max-w-lg fixed transition-all  left-0 mx-auto px-2 py-1  z-10 " +
+        (show ? "top-1" : "-top-full")
+      }
+    >
+      <div className="border-4 border-red-500 bg-yellow-200 shadow-md text-center border-double p-1 px-3 rounded mb-5">
+        {!message
+          ? "THIS PAGE IS PUBLIC. TO MAKE PRIVATE NOTES. PLEASE LOGIN"
+          : message}
+      </div>
     </div>
   );
 };

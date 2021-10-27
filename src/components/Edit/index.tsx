@@ -2,6 +2,7 @@ import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SyntheticEvent, useRef } from "react";
 import { useData } from "../../contexts/DataProvider";
+import { useNotification } from "../../contexts/NotificationContext";
 import { deleteNote, updateNote } from "../../services/notes/services";
 import AutoHeightTextarea from "../AutoHeightTextArea";
 import { CreateProps } from "./type";
@@ -11,6 +12,7 @@ const Edit = ({ data, onClose = () => {} }: CreateProps) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const noteRef = useRef<HTMLTextAreaElement>(null);
   const { fetchData } = useData();
+  const { setMessage } = useNotification();
 
   if (!id) {
     return <p className="card">Invalid Data</p>;
@@ -25,6 +27,7 @@ const Edit = ({ data, onClose = () => {} }: CreateProps) => {
     }
 
     updateNote(id, titleRefValue || "", noteValue || "").then(res => {
+      setMessage("Note Updated");
       fetchData();
       onClose();
     });
@@ -32,6 +35,7 @@ const Edit = ({ data, onClose = () => {} }: CreateProps) => {
 
   const onDelete = () => {
     deleteNote(id).then(res => {
+      setMessage("Note Deleted");
       fetchData();
       onClose();
     });

@@ -2,6 +2,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SyntheticEvent, useRef } from "react";
 import { useData } from "../../contexts/DataProvider";
+import { useNotification } from "../../contexts/NotificationContext";
 import { createNotes } from "../../services/notes/services";
 import AutoHeightTextarea from "../AutoHeightTextArea";
 import { CreateProps } from "./type";
@@ -10,6 +11,7 @@ const Create = ({ data }: CreateProps) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const notesRef = useRef<HTMLTextAreaElement>(null);
   const { fetchData } = useData();
+  const { setMessage } = useNotification();
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -19,6 +21,7 @@ const Create = ({ data }: CreateProps) => {
       return;
     }
     createNotes(titleValue || "", noteValue || "").then(res => {
+      setMessage("Note Created");
       fetchData();
     });
   };
