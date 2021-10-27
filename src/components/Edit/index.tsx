@@ -6,7 +6,7 @@ import { deleteNote, updateNote } from "../../services/notes/services";
 import AutoHeightTextarea from "../AutoHeightTextArea";
 import { CreateProps } from "./type";
 
-const Edit = ({ data }: CreateProps) => {
+const Edit = ({ data, onClose = () => {} }: CreateProps) => {
   const { id, title, note } = data;
   const titleRef = useRef<HTMLInputElement>(null);
   const noteRef = useRef<HTMLTextAreaElement>(null);
@@ -26,12 +26,14 @@ const Edit = ({ data }: CreateProps) => {
 
     updateNote(id, titleRefValue || "", noteValue || "").then(res => {
       fetchData();
+      onClose();
     });
   };
 
   const onDelete = () => {
     deleteNote(id).then(res => {
       fetchData();
+      onClose();
     });
   };
 

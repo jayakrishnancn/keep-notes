@@ -9,7 +9,7 @@ const Model = ({ note, onClose }: { note: Note; onClose: () => void }) => {
         onClose();
       }}
     >
-      <Edit data={note} />
+      <Edit data={note} onClose={onClose} />
     </div>
   );
 };

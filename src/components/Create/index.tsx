@@ -1,8 +1,8 @@
-import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SyntheticEvent, useRef } from "react";
 import { useData } from "../../contexts/DataProvider";
-import { createNotes, deleteNote } from "../../services/notes/services";
+import { createNotes } from "../../services/notes/services";
 import AutoHeightTextarea from "../AutoHeightTextArea";
 import { CreateProps } from "./type";
 
@@ -21,14 +21,6 @@ const Create = ({ data }: CreateProps) => {
     createNotes(titleValue || "", noteValue || "").then(res => {
       fetchData();
     });
-  };
-
-  const onDelete = () => {
-    if (data && data.id) {
-      deleteNote(data?.id).then(res => {
-        fetchData();
-      });
-    }
   };
 
   return (
@@ -50,22 +42,10 @@ const Create = ({ data }: CreateProps) => {
         </div>
         <div
           className={
-            "flex justify-between  w-full px-3" +
+            "flex justify-between  flex-row-reverse w-full px-3" +
             (!data?.id ? " pb-0 absolute -bottom-4" : " pb-3")
           }
         >
-          {data?.id ? (
-            <button
-              title="Delete note"
-              type="button"
-              onClick={() => onDelete()}
-              className="flex items-center justify-center rounded-full  bg-red-500 text-white w-10 h-10"
-            >
-              <FontAwesomeIcon icon={faTrash} size="sm" />
-            </button>
-          ) : (
-            <div />
-          )}
           <button
             title="Create note"
             type="submit"
