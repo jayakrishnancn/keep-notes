@@ -20,10 +20,14 @@ const Create = ({ data }: CreateProps) => {
     if (!titleValue && !noteValue) {
       return;
     }
-    createNotes(titleValue || "", noteValue || "").then(res => {
-      setMessage("Note Created");
-      fetchData();
-    });
+    createNotes(titleValue || "", noteValue || "")
+      .then(res => {
+        setMessage("Note Created");
+        fetchData();
+      })
+      .catch(err => {
+        setMessage("Error occurred while creating note.");
+      });
   };
 
   return (

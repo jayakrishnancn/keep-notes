@@ -1,36 +1,11 @@
+import { fetchData } from "../apiServices";
+import {
+  appendLocalData,
+  getAllLocalData,
+  getNote,
+  saveLocalData,
+} from "./localData";
 import { Note, NotesResponse, Response } from "./type";
-
-enum STORE_KEY {
-  NOTES = "NOTES",
-}
-
-const sortByDate = (a: Note, b: Note) => {
-  // Turn your strings into dates, and then subtract them
-  // to get a value that is either negative, positive, or zero.
-  return new Date(Number(b.id)).getTime() - new Date(Number(a.id)).getTime();
-};
-
-const getAllLocalData = (): Note[] => {
-  const data: Note[] =
-    JSON.parse(localStorage.getItem(STORE_KEY.NOTES) || "") || [];
-
-  return data.sort(sortByDate);
-};
-const saveLocalData = (data: Note[]) => {
-  if (!data) return;
-  const newData = JSON.stringify(data);
-  localStorage.setItem(STORE_KEY.NOTES, newData);
-};
-
-const appendLocalData = (data: Note) => {
-  const prevData = getAllLocalData();
-  saveLocalData([...prevData, data]);
-};
-
-const getNote = (id: string): Note | undefined => {
-  const prevData = getAllLocalData();
-  return prevData.find(item => item.id === id);
-};
 
 /** api  */
 export const getAllNotes = (): Promise<NotesResponse> => {
@@ -39,9 +14,11 @@ export const getAllNotes = (): Promise<NotesResponse> => {
 
 export const createNotes = (title: string, note: string): Promise<Response> => {
   let id = new Date().getTime() + "";
-  appendLocalData({ title, note, id });
-
-  return Promise.resolve({ success: true, data: null });
+  const data = { title, note, id };
+  return fetchData(data, "POST").then(res => {
+    appendLocalData(data);
+    return res;
+  });
 };
 
 export const updateNote = (
@@ -58,8 +35,10 @@ export const updateNote = (
         note,
       },
     ];
-    saveLocalData(data);
-    return Promise.resolve({ success: true, data });
+    return fetchData(data, "POST").then(res => {
+      saveLocalData(data);
+      return res;
+    });
   }
   return Promise.reject({
     success: false,

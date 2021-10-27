@@ -26,19 +26,27 @@ const Edit = ({ data, onClose = () => {} }: CreateProps) => {
       return;
     }
 
-    updateNote(id, titleRefValue || "", noteValue || "").then(res => {
-      setMessage("Note Updated");
-      fetchData();
-      onClose();
-    });
+    updateNote(id, titleRefValue || "", noteValue || "")
+      .then(res => {
+        setMessage("Note Updated");
+        fetchData();
+        onClose();
+      })
+      .catch(err => {
+        setMessage("Error occurred while updating note.");
+      });
   };
 
   const onDelete = () => {
-    deleteNote(id).then(res => {
-      setMessage("Note Deleted");
-      fetchData();
-      onClose();
-    });
+    deleteNote(id)
+      .then(res => {
+        setMessage("Note Deleted");
+        fetchData();
+        onClose();
+      })
+      .catch(err => {
+        setMessage("Error occurred while deleting note.");
+      });
   };
 
   return (
