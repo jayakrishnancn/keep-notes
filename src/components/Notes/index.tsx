@@ -1,29 +1,24 @@
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useData } from "../../contexts/DataProvider";
 import { Note } from "../../services/notes/type";
-import Create from "../Create";
+import Model from "../Modal";
 
-const Model = ({ note, setData }: { note: Note; setData: any }) => {
-  return (
-    <div
-      className="fixed bg-opacity-95  inset-0 bg-purple-900 z-10 pt-14"
-      onClick={e => {
-        e.preventDefault();
-        setData(null);
-      }}
-    >
-      <Create data={note} onCreate={() => {}} />
-    </div>
-  );
-};
-
-const Notes = ({ data }: { data: Note[] | null }) => {
+const Notes = () => {
   const [modelData, setModelData] = useState<Note | null>(null);
+  const { data } = useData();
+
+  if (!data) {
+    return <p className="text-center mt-10">Notes will appear here.</p>;
+  }
 
   return (
     <>
-      {modelData && <Model note={modelData} setData={setModelData} />}
+      {modelData && (
+        <Model note={modelData} onClose={() => setModelData(null)} />
+      )}
+
       <div className="container mx-auto mt-12 grid grid-cols-4 gap-4">
         {data?.map((cardData: Note, index: number) => {
           const { title, note } = cardData;
