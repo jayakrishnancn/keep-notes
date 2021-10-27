@@ -1,27 +1,70 @@
 import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
 
 const LoginPage = () => {
-  const { setToken, token } = useAuth();
   const history = useHistory();
+
+  const onSubmit = () => {
+    history.push("/");
+  };
+
   return (
-    <div className="text-center">
-      <Link to="/" className="mb-4 inline-block">
-        Home
-      </Link>
-      <div className="mb-5">Login Page {token ? "with" : "without"} token </div>
-      <button
-        className="btn-danger m-5 leading-7"
-        onClick={e => {
-          setToken("some token");
-          history.push("/");
-        }}
-      >
-        LOGIN
-      </button>
-      <Link to="/asdasd">Some Broken Links</Link>
-      <Link to="/404">404</Link>
+    <div className="text-center container">
+      <form className="w-full max-w-sm mt-20 mx-auto" onSubmit={onSubmit}>
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-1/3">
+            <label
+              className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+              htmlFor="inline-full-name"
+            >
+              Full Name
+            </label>
+          </div>
+          <div className="md:w-2/3">
+            <input
+              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-600"
+              id="inline-full-name"
+              type="text"
+              placeholder="Ex. Jane Doe"
+            />
+          </div>
+        </div>
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-1/3">
+            <label
+              className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+              htmlFor="inline-password"
+            >
+              Password
+            </label>
+          </div>
+          <div className="md:w-2/3">
+            <input
+              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-600"
+              id="inline-password"
+              type="password"
+              placeholder="******************"
+            />
+          </div>
+        </div>
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-1/3"></div>
+          <label className="md:w-2/3 block text-gray-500 font-bold">
+            <input className="mr-2 leading-tight" type="checkbox" />
+            <span className="text-sm">Send me your newsletter!</span>
+          </label>
+        </div>
+        <div className="md:flex md:items-center">
+          <div className="md:w-1/3"></div>
+          <div className="md:w-2/3">
+            <button
+              className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+              type="submit"
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 };
