@@ -21,11 +21,11 @@ const Notes = () => {
 
       <div className="container mx-auto mt-12 grid grid-cols-4 gap-4">
         {data?.map((cardData: Note, index: number) => {
-          const { title, note } = cardData;
+          const { title, note, id } = cardData;
           return (
             <div
-              key={`note-${title}`}
-              onClick={() => setModelData({ ...cardData, id: index + "" })}
+              key={`note-${id}`}
+              onClick={() => setModelData({ ...cardData, id })}
               className="bg-white border rounded-md  relative cursor-default group hover:shadow-md transition-shadow mx-1 p-3"
             >
               <div className="absolute cursor-pointer top-2 right-2 hidden group-hover:block">
