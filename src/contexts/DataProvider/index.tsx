@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { getAllNotes } from "../../services/notes/services";
+import { getAllNotes } from "../../services/notes";
 import { Note } from "../../services/notes/type";
 
 interface DataProps {

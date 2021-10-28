@@ -4,7 +4,7 @@ import { SyntheticEvent, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useData } from "../../contexts/DataProvider";
 import { useNotification } from "../../contexts/NotificationContext";
-import { deleteNote, updateNote } from "../../services/notes/services";
+import { deleteNote, updateNote } from "../../services/notes";
 import { captchaWrapper } from "../../utils/captchaWrapper";
 import AutoHeightTextarea from "../AutoHeightTextArea";
 import { CreateProps } from "./type";
