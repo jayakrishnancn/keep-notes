@@ -1,9 +1,9 @@
 import { lazy } from "react";
-import _404 from "../components/_404";
-import LoginPage from "../pages/LoginPage";
+import Dashboard from "../pages/Dashboard";
 import { DynamicRouteProps } from "./type";
 
-const Dashboard = lazy(() => import("../pages/Dashboard"));
+const LoginPage = lazy(() => import("../pages/LoginPage"));
+const _404 = lazy(() => import("../components/_404"));
 
 const routes: DynamicRouteProps[] = [
   {

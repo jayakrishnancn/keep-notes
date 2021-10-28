@@ -1,19 +1,20 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SyntheticEvent, useRef } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { lazy, SyntheticEvent, useRef } from "react";
 import { useData } from "../../contexts/DataProvider";
 import { useNotification } from "../../contexts/NotificationContext";
 import { createNotes } from "../../services/notes";
 import { captchaWrapper } from "../../utils/captchaWrapper";
 import AutoHeightTextarea from "../AutoHeightTextArea";
 import { CreateProps } from "./type";
+// import ReCAPTCHA from "react-google-recaptcha";
+const ReCAPTCHA = lazy(() => import("react-google-recaptcha"));
 
 const Create = ({ data }: CreateProps) => {
   const formRef = useRef<HTMLFormElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const notesRef = useRef<HTMLTextAreaElement>(null);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const recaptchaRef = useRef<any>(null);
 
   const { fetchData } = useData();
   const { setMessage } = useNotification();
@@ -21,11 +22,11 @@ const Create = ({ data }: CreateProps) => {
   const onSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     captchaWrapper(recaptchaRef)
-      .then(token => {
+      .then(() => {
         const title = titleRef?.current?.value || "";
         const note = notesRef?.current?.value || "";
         if (!title && !note) {
-          return;
+          return setMessage("Title and Note cannot be empty");
         }
         createNotes(title, note || "")
           .then(() => {
@@ -70,7 +71,7 @@ const Create = ({ data }: CreateProps) => {
           />
           <AutoHeightTextarea
             ref={notesRef}
-            rows={3}
+            minHeight={50}
             defaultValue={data?.note || ""}
             placeholder="Take a note."
             className="w-full min-h-full outline-none placeholder"

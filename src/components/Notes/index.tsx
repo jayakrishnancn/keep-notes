@@ -19,14 +19,14 @@ const Notes = () => {
         <Model note={modelData} onClose={() => setModelData(null)} />
       )}
 
-      <div className="container mx-auto mt-12 grid grid-cols-4 gap-4 break-words text-left">
+      <div className="container mx-auto mt-12 grid lg:grid-cols-4 sm:grid-cols-2 gap-4 break-words text-left">
         {data?.map((cardData: Note, index: number) => {
           const { title, note, id } = cardData;
           return (
             <div
               key={`note-${id}`}
               onClick={() => setModelData({ ...cardData, id })}
-              className="bg-white border-gray-300 border rounded-md  relative cursor-default group hover:shadow-lg transition-shadow mx-1 p-3 text-gray-600"
+              className="bg-white border-gray-300 border rounded-md relative cursor-default group hover:shadow-lg transition-shadow mx-1 p-3 text-gray-600 flex-1"
             >
               <div className="absolute cursor-pointer top-2 right-2 hidden group-hover:block">
                 <FontAwesomeIcon icon={faPencilAlt} />

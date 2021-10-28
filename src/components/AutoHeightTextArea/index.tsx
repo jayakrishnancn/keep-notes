@@ -1,10 +1,14 @@
 import { forwardRef, HTMLProps, useLayoutEffect, useState } from "react";
 
+const MIN_TEXTAREA_HEIGHT = 25;
 const AutoHeightTextarea = (
-  { className, ...rest }: HTMLProps<HTMLTextAreaElement>,
+  {
+    className,
+    minHeight = 0,
+    ...rest
+  }: HTMLProps<HTMLTextAreaElement> & { minHeight?: number },
   textareaRef: any
 ) => {
-  const MIN_TEXTAREA_HEIGHT = 20;
   // const textareaRef = useRef<any>(null);
   const [value, setValue] = useState<string>("");
   const onChange = (event: any) => setValue(event.target.value);
@@ -28,7 +32,7 @@ const AutoHeightTextarea = (
       maxLength={1000}
       rows={1}
       style={{
-        minHeight: MIN_TEXTAREA_HEIGHT,
+        minHeight: minHeight || MIN_TEXTAREA_HEIGHT,
         resize: "none",
       }}
       {...rest}
