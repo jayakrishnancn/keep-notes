@@ -18,7 +18,7 @@ const Create = ({ data }: CreateProps) => {
   const { fetchData } = useData();
   const { setMessage } = useNotification();
 
-  const onSubmit = (e: SyntheticEvent) => {
+  const onSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     captchaWrapper(recaptchaRef)
       .then(token => {
@@ -41,6 +41,9 @@ const Create = ({ data }: CreateProps) => {
       .catch(err => {
         console.error(err);
         setMessage("Captcha Failed Please retry.");
+      })
+      .finally(() => {
+        recaptchaRef?.current?.reset();
       });
   };
 

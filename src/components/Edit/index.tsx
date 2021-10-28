@@ -47,6 +47,9 @@ const Edit = ({ data, onClose = () => {} }: CreateProps) => {
       .catch(err => {
         console.error(err);
         setMessage("Captcha Failed Please retry." + err);
+      })
+      .finally(() => {
+        recaptchaRef?.current?.reset();
       });
   };
 
@@ -67,6 +70,9 @@ const Edit = ({ data, onClose = () => {} }: CreateProps) => {
       .catch(err => {
         console.error(err);
         setMessage("Captcha Failed Please retry." + err);
+      })
+      .finally(() => {
+        recaptchaRef?.current?.reset();
       });
   };
 
