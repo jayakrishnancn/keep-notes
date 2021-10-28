@@ -18,7 +18,7 @@ const Banner = () => {
   return (
     <div
       className={
-        "max-w-lg fixed transition-all  left-0 mx-auto px-2 py-1  z-10 " +
+        "max-w-lg fixed transition-all  left-0 mx-auto px-2 py-1  z-50 " +
         (show ? "top-1" : "-top-full")
       }
     >
