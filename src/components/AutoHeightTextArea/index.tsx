@@ -25,6 +25,7 @@ const AutoHeightTextarea = (
       onChange={onChange}
       ref={textareaRef}
       className={className}
+      maxLength={1000}
       rows={1}
       style={{
         minHeight: MIN_TEXTAREA_HEIGHT,

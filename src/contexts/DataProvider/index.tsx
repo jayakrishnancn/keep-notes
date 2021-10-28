@@ -21,17 +21,15 @@ const DataContext = createContext<DataProps>({
 export const DataProvider = (props: any) => {
   const [data, setData] = useState<Note[] | null>(null);
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     getAllNotes().then(({ data }) => {
       setData(data);
     });
   }, []);
 
-  const fetchData = useCallback((value: string | null) => {
-    getAllNotes().then(({ data }) => {
-      setData(data);
-    });
-  }, []);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   return (
     <DataContext.Provider

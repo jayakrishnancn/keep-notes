@@ -9,6 +9,7 @@ import { CreateProps } from "./type";
 
 const Edit = ({ data, onClose = () => {} }: CreateProps) => {
   const { id, title, note } = data;
+  const formRef = useRef<HTMLFormElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const noteRef = useRef<HTMLTextAreaElement>(null);
   const { fetchData } = useData();
@@ -27,24 +28,27 @@ const Edit = ({ data, onClose = () => {} }: CreateProps) => {
     }
 
     updateNote(id, titleRefValue || "", noteValue || "")
-      .then(res => {
+      .then(() => {
         setMessage("Note Updated");
+        formRef?.current?.reset();
         fetchData();
         onClose();
       })
       .catch(err => {
+        console.error(err);
         setMessage("Error occurred while updating note.");
       });
   };
 
   const onDelete = () => {
     deleteNote(id)
-      .then(res => {
+      .then(() => {
         setMessage("Note Deleted");
         fetchData();
         onClose();
       })
       .catch(err => {
+        console.error(err);
         setMessage("Error occurred while deleting note.");
       });
   };

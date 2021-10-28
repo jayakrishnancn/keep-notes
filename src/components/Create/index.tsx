@@ -8,6 +8,7 @@ import AutoHeightTextarea from "../AutoHeightTextArea";
 import { CreateProps } from "./type";
 
 const Create = ({ data }: CreateProps) => {
+  const formRef = useRef<HTMLFormElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const notesRef = useRef<HTMLTextAreaElement>(null);
   const { fetchData } = useData();
@@ -15,6 +16,7 @@ const Create = ({ data }: CreateProps) => {
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+
     const titleValue = titleRef?.current?.value;
     const noteValue = notesRef?.current?.value || null;
     if (!titleValue && !noteValue) {
@@ -23,15 +25,17 @@ const Create = ({ data }: CreateProps) => {
     createNotes(titleValue || "", noteValue || "")
       .then(() => {
         setMessage("Note Created");
+        formRef?.current?.reset();
         fetchData();
       })
       .catch(err => {
+        console.error(err);
         setMessage("Error occurred while creating note.");
       });
   };
 
   return (
-    <form onSubmit={onSubmit} onClick={e => e.stopPropagation()}>
+    <form onSubmit={onSubmit} ref={formRef} onClick={e => e.stopPropagation()}>
       <div className="card w-full relative ">
         <div className="p-5">
           <AutoHeightTextarea
