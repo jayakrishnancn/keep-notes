@@ -9,7 +9,7 @@ const Notes = () => {
   const [modelData, setModelData] = useState<Note | null>(null);
   const { data } = useData();
 
-  if (data?.length === 0) {
+  if (!data?.length) {
     return <p className="text-center mt-10">Notes will appear here.</p>;
   }
 

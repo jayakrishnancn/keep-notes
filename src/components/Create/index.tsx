@@ -21,7 +21,7 @@ const Create = ({ data }: CreateProps) => {
       return;
     }
     createNotes(titleValue || "", noteValue || "")
-      .then(res => {
+      .then(() => {
         setMessage("Note Created");
         fetchData();
       })
